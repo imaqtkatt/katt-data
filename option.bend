@@ -2,7 +2,7 @@ type Option:
   Some { value }
   None
 
-# use Option{Some,None} :(
+# use Option/{Some, None} :(
 
 def Option/pure(value):
   return Option/Some(value)
@@ -21,7 +21,7 @@ def Option/seq(f, u):
 def Option/fmap(f, option):
   match option:
     case Option/Some:
-      return f(option.value)
+      return Option/Some(f(option.value))
     case Option/None:
       return Option/None
 
