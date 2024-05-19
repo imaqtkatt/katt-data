@@ -10,11 +10,7 @@ def Option/pure(value):
 def Option/seq(f, u):
   match f:
     case Option/Some:
-      match u:
-        case Option/Some:
-          return Option/Some(f.value(u.value))
-        case Option/None:
-          return Option/None
+      return Option/fmap(f.value, u)
     case Option/None:
       return Option/None
 
