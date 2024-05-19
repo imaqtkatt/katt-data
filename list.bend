@@ -3,28 +3,21 @@ def List/pure(x):
 
 def List/fmap(f, list):
   fold list:
-    case List/Nil:
-      return List/Nil
     case List/Cons:
       return List/Cons(f(list.head), list.tail)
+    case List/Nil:
+      return List/Nil
 
 def List/seq(f, u):
-  match f:
+  fold f:
     case List/Cons:
-      match u:
-        case List/Cons:
-          return List/Cons(
-            f.head(u.head),
-            List/append(List/fmap(f.head, u.tail), List/seq(f.tail, u.tail)),
-          )
-        case List/Nil:
-          return List/Nil
+      return List/append(List/fmap(f.head, u), f.tail)
     case List/Nil:
       return List/Nil
 
 def List/append(xs, ys):
-  match xs:
+  fold xs:
     case List/Cons:
-      return List/Cons(xs.head, List/append(xs.tail, ys))
+      return List/Cons(xs.head, xs.tail)
     case List/Nil:
       return ys
